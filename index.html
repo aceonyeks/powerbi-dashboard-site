@@ -12,12 +12,16 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        header {
+        header, .footer, nav {
             background-color: #0078D7;
             color: white;
             text-align: center;
-            padding: 20px;
-            font-size: 24px;
+            padding: 15px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
             font-weight: bold;
         }
         .container {
@@ -28,7 +32,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        h2 {
+        h2, h3 {
             text-align: center;
             color: #0078D7;
         }
@@ -42,13 +46,31 @@
             border: none;
         }
         .footer {
-            text-align: center;
-            padding: 10px;
-            background: #0078D7;
-            color: white;
             position: relative;
             bottom: 0;
             width: 100%;
+        }
+        button.toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border: none;
+            background: #0078D7;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: #f4f4f4;
+        }
+        .dark-mode .container {
+            background: #2c2c2c;
+        }
+        .dark-mode .footer, .dark-mode header, .dark-mode nav {
+            background-color: #444;
+            color: white;
         }
     </style>
 </head>
@@ -58,22 +80,70 @@
         Power BI Dashboard - Secure Data Insights
     </header>
 
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
     <div class="container">
         <h2>Welcome to Our Power BI Dashboard</h2>
         <p>Our interactive dashboard provides real-time data insights, helping you make informed business decisions. Authorized users can access detailed analytics securely.</p>
 
-        <div class="dashboard">
+        <div class="dashboard" id="dashboard">
             <h3>Live Dashboard</h3>
-            <iframe width="100%" height="600px" 
+            <div id="loading">Loading dashboard...</div>
+            <iframe 
+                onload="document.getElementById('loading').style.display='none'" 
                 src="https://app.powerbi.com/reportEmbed?reportId=4e3420d8-5725-401e-869a-4b645bed9f01&autoAuth=true&ctid=d49ab9ea-99ec-4552-8651-bd94f79aa5e5" 
-                frameborder="0" allowFullScreen="true">
+                allowfullscreen="true">
             </iframe>
         </div>
     </div>
 
+    <section id="about" class="container">
+        <h3>About This Dashboard</h3>
+        <p>This Power BI dashboard analyzes key metrics related to business operations, focusing on visualizing patterns and trends in real-time. It supports teams in making data-informed decisions using secure and interactive visual tools.</p>
+    </section>
+
+    <section class="container">
+        <h3>Meet the Team</h3>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div style="width: 200px; text-align: center; margin: 10px;">
+                <img src="https://via.placeholder.com/100" style="border-radius: 50%;">
+                <p><strong>Jane Doe</strong><br>Data Analyst</p>
+            </div>
+            <div style="width: 200px; text-align: center; margin: 10px;">
+                <img src="https://via.placeholder.com/100" style="border-radius: 50%;">
+                <p><strong>John Smith</strong><br>Front-End Developer</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h3>Contact Us</h3>
+        <form>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" style="width: 100%; padding: 8px;"><br><br>
+
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="4" style="width: 100%; padding: 8px;"></textarea><br><br>
+
+            <button type="submit" style="padding: 10px 20px; background-color: #0078D7; color: white; border: none; border-radius: 4px;">Send</button>
+        </form>
+    </section>
+
     <div class="footer">
         © 2025 Data Insights Team | Secure & Interactive Power BI Analytics
     </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 
 </body>
 </html>
